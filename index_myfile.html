@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue Mastery</title>
+  <!-- Import Styles -->
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <!-- Import Vue.js -->
+  <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="nav-bar"></div>
+
+    <div class="cart">Cart({{ cart }})</div>
+
+    <div class="product-display">
+      <div class="product-container">
+        <div class="product-image">
+          <!-- image goes here -->
+          <img v-bind:src="image">
+
+          <!-- iif -elseif - else condtions -->
+          <p v-if="inventory > 10"> In stock</p>
+          <p v-else-if="inventory > 0 &&  inventory <= 10"> Almost sold out</p>
+          <p v-else> Out of stock</p>
+
+          <!-- List rendering/ for loop -->
+          <ul>
+            <li v-for="detail in details">
+              {{ detail }}
+            </li>
+          </ul>
+
+          <!-- List rendering/ for loop -->
+          <ul>
+            <li v-for="(variant,index) in variants" v-bind:key="variant.id" @mouseover="updateVariant(index)"
+              class="color-circle" :style = "{backgroundColor:variant.color }">
+              
+            </li>
+          </ul>
+
+          <!-- List rendering/ for loop -->
+          <ul>
+            <li v-for="size in sizes">
+              {{ size }}
+            </li>
+          </ul>
+
+        </div>
+        <div class="product-info">
+          <h1>{{ title }}</h1>
+        </div>
+
+        <!-- on click handling -->
+        <button class="button"  v-on:click="addToCart" :disabled="!inStock">Add to Cart</button>
+
+        <button class="button" v-on:click="removeFromCart">Remove From Cart</button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Import App -->
+  <script src="./main.js"></script>
+
+  <!-- Mount App -->
+  <script>
+    const mountedApp = app.mount('#app')
+  </script>
+</body>
+
+</html>
